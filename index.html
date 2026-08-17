@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing Page para tu negocio | Rio Landing · RiO Impulso Digital</title>
-  <meta name="description" content="Consigue más clientes con una Landing Page profesional diseñada para convertir. Plan Express $50.000 · Plan Premium $60.000. WhatsApp integrado, lista en 48 hrs.">
+  <meta name="description" content="Consigue más clientes con una Landing Page profesional diseñada para convertir. Landing Express y Landing Premium, con WhatsApp integrado y lista en 48 hrs.">
 
   <meta property="og:title" content="Landing Page para tu negocio | Rio Landing · RiO Impulso Digital">
-  <meta property="og:description" content="Consigue más clientes con una Landing Page profesional diseñada para convertir. Plan Express $50.000 · Plan Premium $60.000. WhatsApp integrado, lista en 48 hrs.">
+  <meta property="og:description" content="Consigue más clientes con una Landing Page profesional diseñada para convertir. Landing Express y Landing Premium, con WhatsApp integrado y lista en 48 hrs.">
   <meta property="og:image" content="https://rio-landing.com/assets/branding/og-banner.png">
   <meta property="og:url" content="https://rio-landing.com">
   <meta property="og:type" content="website">
@@ -67,19 +67,14 @@
       letter-spacing: -.02em;
       margin: 0;
     }
-    .rl-plan-price {
+    .rl-plan-tagline {
       font-family: var(--ff-head);
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--p);
-      letter-spacing: -.04em;
-      line-height: 1;
-    }
-    .rl-plan-price span {
-      font-size: .88rem;
-      font-weight: 400;
+      font-size: 1.05rem;
+      font-weight: 600;
       color: var(--muted);
-      letter-spacing: 0;
+      letter-spacing: -.01em;
+      line-height: 1.4;
+      margin: 0;
     }
     .rl-plan-divider {
       border: none;
@@ -113,12 +108,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
       padding: .85rem 1.5rem;
       border-radius: var(--r-m);
       font-family: var(--ff-head);
       font-size: .88rem;
       font-weight: 700;
       text-decoration: none;
+      cursor: pointer;
       transition: all .18s var(--ease);
       text-align: center;
       margin-top: .25rem;
@@ -208,6 +205,8 @@
       padding: .9rem 2rem;
       background: var(--coral);
       color: var(--white);
+      border: none;
+      cursor: pointer;
       border-radius: var(--r-m);
       font-family: var(--ff-head);
       font-weight: 700;
@@ -307,6 +306,110 @@
     .wa-float svg {
       width: 28px; height: 28px; flex-shrink: 0; fill: var(--white);
     }
+    @media (max-width: 640px) {
+      .wa-float { right: 1rem; bottom: 1rem; width: 52px; height: 52px; }
+    }
+
+    /* ── SELECTOR DE MERCADO (CL/AR) ──────────────── */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .market-switch {
+      display: flex;
+      gap: .3rem;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      padding: 3px;
+      flex-shrink: 0;
+    }
+    .market-btn {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .35rem .65rem;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(255,255,255,.6);
+      font-family: var(--ff-mono);
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .03em;
+      cursor: pointer;
+      transition: background .18s var(--ease), color .18s var(--ease);
+    }
+    .market-btn:hover { color: var(--white); }
+    .market-btn.active {
+      background: var(--coral);
+      color: var(--white);
+    }
+    .market-btn:focus-visible {
+      outline: 2px solid var(--coral);
+      outline-offset: 2px;
+    }
+    .market-flag {
+      width: 18px;
+      height: 13px;
+      max-width: none;
+      border-radius: 2px;
+      display: block;
+      flex-shrink: 0;
+    }
+    #marketSwitchDrawer { display: none; }
+    @media (max-width: 640px) {
+      #marketSwitchNav    { display: none; }
+      #marketSwitchDrawer { display: flex; }
+    }
+
+    /* ── PRECIOS: REGULAR / PROMO ─────────────────── */
+    .rl-plan-pricing { display: flex; flex-direction: column; gap: .15rem; }
+    .rl-plan-price-regular {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: line-through;
+      font-size: .95rem;
+      letter-spacing: -.01em;
+    }
+    .rl-plan-price-promo {
+      font-family: var(--ff-head);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--p);
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+    .rl-plan-price-promo span,
+    .rl-plan-price-regular span {
+      font-size: .78em;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0;
+      text-decoration: none;
+    }
+    /* Promo vencida: el precio regular pasa a ser el precio destacado, sin tachado */
+    .rl-plan-pricing:not(.is-promo) .rl-plan-price-regular {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--p);
+      text-decoration: none;
+    }
+    .rl-plan-pricing:not(.is-promo) .rl-plan-price-promo { display: none; }
+    .rl-promo-banner {
+      font-family: var(--ff-mono);
+      font-size: .72rem;
+      letter-spacing: .04em;
+      color: var(--coral);
+      background: rgba(255,107,107,.1);
+      border: 1px solid rgba(255,107,107,.25);
+      border-radius: var(--r-m);
+      padding: .6rem 1rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
 
     /* ── HERO H1 LÍNEAS ───────────────────────────── */
     .fp-hero h1 .l1 { display: block; }
@@ -342,8 +445,10 @@
 <body>
 
 <!-- ── WHATSAPP FLOTANTE ─────────────────────────── -->
+<!-- href se completa por JS según el mercado activo (assets/js/main.js) -->
 <a
-  href="https://wa.me/56985921512?text=Hola%21%20Me%20interesa%20una%20Landing%20Page%20%F0%9F%9A%80"
+  href="#"
+  id="waFloatLink"
   target="_blank"
   rel="noopener"
   class="wa-float"
@@ -367,14 +472,36 @@
     >
     <span class="nav-logo-text">Rio<em>Landing</em></span>
   </a>
-  <a href="#planes" class="nav-cta">Ver planes →</a>
-  <button class="nav-hamburger" aria-label="Abrir menú" onclick="openDrawer()">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-actions">
+    <div class="market-switch" id="marketSwitchNav" role="group" aria-label="Selector de país">
+      <button type="button" class="market-btn" data-market="CL" aria-pressed="false" aria-label="Cambiar a Chile">
+        <img src="https://flagcdn.com/20x15/cl.png" alt="" class="market-flag" width="20" height="15">
+        <span>CL</span>
+      </button>
+      <button type="button" class="market-btn" data-market="AR" aria-pressed="false" aria-label="Cambiar a Argentina">
+        <img src="https://flagcdn.com/20x15/ar.png" alt="" class="market-flag" width="20" height="15">
+        <span>AR</span>
+      </button>
+    </div>
+    <a href="#planes" class="nav-cta">Ver planes →</a>
+    <button class="nav-hamburger" aria-label="Abrir menú" onclick="openDrawer()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <div class="nav-drawer" id="navDrawer">
   <button class="nav-drawer-close" onclick="closeDrawer()" aria-label="Cerrar">✕</button>
+  <div class="market-switch" id="marketSwitchDrawer" role="group" aria-label="Selector de país">
+    <button type="button" class="market-btn" data-market="CL" aria-pressed="false" aria-label="Cambiar a Chile">
+      <img src="https://flagcdn.com/20x15/cl.png" alt="" class="market-flag" width="20" height="15">
+      <span>CL</span>
+    </button>
+    <button type="button" class="market-btn" data-market="AR" aria-pressed="false" aria-label="Cambiar a Argentina">
+      <img src="https://flagcdn.com/20x15/ar.png" alt="" class="market-flag" width="20" height="15">
+      <span>AR</span>
+    </button>
+  </div>
   <a href="#planes" onclick="closeDrawer()" style="color:var(--coral)">Ver planes →</a>
 </div>
 
@@ -383,7 +510,7 @@
   <div class="fp-hero-orb"></div>
   <div class="fp-hero-content">
     <div class="fp-hero-text">
-      <p class="fp-launch-tag">✦ Recién lanzamos · Precio de fundador activo</p>
+      <p class="fp-launch-tag">✦ Recién lanzamos</p>
       <p class="fp-eyebrow">Para emprendedores · Profesionales · Comercios locales</p>
       <h1>
         <span class="l1">Tu página en</span>
@@ -399,6 +526,16 @@
         <span class="fp-badge">SSL incluido</span>
         <span class="fp-badge">Pago único</span>
       </div>
+      <a
+        href="#"
+        id="heroCta"
+        target="_blank"
+        rel="noopener"
+        class="rl-btn-coral"
+        style="margin-top:1.5rem;"
+      >
+        Quiero mi Landing Page →
+      </a>
     </div>
     <div class="fp-hero-image">
       <img
@@ -482,13 +619,14 @@
 
     <p class="sec-label">Planes</p>
     <h2 class="fp-title">Elige el plan que <span class="hl">mejor te queda</span></h2>
-    <p class="fp-desc" style="margin-bottom:.5rem;">Dos opciones pensadas para distintos momentos y necesidades. Ambas con todo lo que necesitas para empezar.</p>
-    <p class="fp-desc" style="color:rgba(255,255,255,.55); font-size:.88rem; margin-bottom:1.1rem;">RioLanding acaba de lanzar. Arrancamos con precio de fundador y tomamos solo 3 proyectos por semana — para que cada landing salga bien, no rápido.</p>
-    <p class="fp-desc" style="color:var(--coral); font-family:var(--ff-mono); font-size:.72rem; letter-spacing:.05em; margin-bottom:1.5rem;">Cuando tengamos historial, el precio sube. Hoy es tu momento de entrar temprano.</p>
+    <p class="fp-desc" style="margin-bottom:1.5rem;">Dos opciones pensadas para distintos momentos y necesidades. Ambas con todo lo que necesitas para empezar.</p>
 
     <div class="fp-callout fp-callout--border" style="margin-bottom:2rem;">
-      Un freelancer tradicional cobra entre $150.000 y $400.000. Una agencia, desde $500.000. <strong>Tu landing lista en 48 hrs por $50.000 — pago único, sin mensualidades.</strong>
+      Un freelancer tradicional o una agencia pueden tardar semanas y sumar cobros mensuales. <strong>Tu landing lista en 48 hrs — pago único, sin mensualidades.</strong>
     </div>
+
+    <!-- oculto por JS (main.js) cuando la promo vence -->
+    <p class="rl-promo-banner" id="promoBanner">Precio de lanzamiento activo — Promoción válida hasta el 30/09/2026</p>
 
     <div class="rl-pricing-grid">
 
@@ -496,7 +634,11 @@
       <div class="rl-plan">
         <span class="rl-plan-badge rl-plan-badge--outline">Popular</span>
         <p class="rl-plan-name">Landing Express</p>
-        <p class="rl-plan-price">$50.000 <span>CLP · pago único</span></p>
+        <p class="rl-plan-tagline">Ideal para comenzar</p>
+        <div class="rl-plan-pricing" id="expressPricing">
+          <p class="rl-plan-price-regular" id="expressRegular"></p>
+          <p class="rl-plan-price-promo" id="expressPromo"></p>
+        </div>
         <hr class="rl-plan-divider">
         <ul class="rl-plan-features">
           <li>Landing Page profesional lista en 48 hrs.</li>
@@ -508,12 +650,13 @@
           <li>Publicación rápida</li>
         </ul>
         <a
-          href="https://wa.me/56985921512?text=Hola%21%20Me%20interesa%20el%20plan%20Landing%20Express%20%F0%9F%9A%80"
+          href="#"
+          id="expressCta"
           target="_blank"
           rel="noopener"
           class="rl-plan-cta rl-plan-cta--coral"
         >
-          Solicitar por WhatsApp →
+          Consultar este plan →
         </a>
       </div>
 
@@ -521,23 +664,28 @@
       <div class="rl-plan rl-plan--featured">
         <span class="rl-plan-badge">Recomendado</span>
         <p class="rl-plan-name">Landing Premium</p>
-        <p class="rl-plan-price">$60.000 <span>CLP · pago único</span></p>
+        <p class="rl-plan-tagline">Presencia de marca propia</p>
+        <div class="rl-plan-pricing" id="premiumPricing">
+          <p class="rl-plan-price-regular" id="premiumRegular"></p>
+          <p class="rl-plan-price-promo" id="premiumPromo"></p>
+        </div>
         <hr class="rl-plan-divider">
         <ul class="rl-plan-features">
           <li>Todo lo incluido en Landing Express</li>
-          <li>Dominio propio del cliente</li>
+          <li>Dominio propio del cliente (sujeto a disponibilidad)</li>
           <li>Configuración DNS completa</li>
           <li>Publicación en el dominio del cliente</li>
           <li>Implementación personalizada</li>
-          <li>+ $9.990 CLP/año por el registro del dominio (el hosting sigue siendo gratuito)</li>
+          <li id="premiumRenewalText"></li>
         </ul>
         <a
-          href="https://wa.me/56985921512?text=Hola%21%20Me%20interesa%20el%20plan%20Landing%20Premium%20%F0%9F%9A%80"
+          href="#"
+          id="premiumCta"
           target="_blank"
           rel="noopener"
           class="rl-plan-cta rl-plan-cta--coral"
         >
-          Solicitar por WhatsApp →
+          Consultar este plan →
         </a>
       </div>
 
@@ -625,7 +773,7 @@
           ¿El dominio personalizado tiene algún costo adicional?
           <svg class="rl-faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <p class="rl-faq-a">Sí. El registro del dominio propio (por ejemplo: tu-negocio.com) tiene un costo de $9.990 CLP al año, renovable anualmente. Este costo es adicional al plan Premium y corresponde al dominio — el hosting sigue siendo gratuito de por vida.</p>
+        <p class="rl-faq-a">El dominio propio (por ejemplo: tu-negocio.com) tiene una renovación desde el 2º año de <span id="faqRenewalAmount"></span> al año, sujeta a disponibilidad y a posibles cambios del registro. Este costo corresponde al dominio, no al plan — el hosting sigue siendo gratuito de por vida. Además, el dominio solicitado está sujeto a disponibilidad: confirmamos que puedas registrarlo antes de avanzar.</p>
       </div>
 
     </div>
@@ -642,7 +790,8 @@
 
     <div class="rl-close-ctas">
       <a
-        href="https://wa.me/56985921512?text=Hola%21%20Me%20interesa%20una%20Landing%20Page%20%F0%9F%9A%80"
+        href="#"
+        id="closeCta"
         target="_blank"
         rel="noopener"
         class="rl-btn-coral"
@@ -678,7 +827,8 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260627" defer></script>
+<script src="assets/js/markets.js?v=20260817" defer></script>
+<script src="assets/js/main.js?v=20260817" defer></script>
 <script>
   function toggleFaq(btn) {
     const item = btn.closest('.rl-faq-item');

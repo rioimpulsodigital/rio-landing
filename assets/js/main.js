@@ -19,6 +19,97 @@ window.addEventListener('scroll', () => {
 function openDrawer()  { document.getElementById('navDrawer').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeDrawer() { document.getElementById('navDrawer').classList.remove('open'); document.body.style.overflow = ''; }
 
+// ── Mercado activo (CL/AR) — precios, WhatsApp y textos ──
+// Fuente de datos: assets/js/markets.js (window.RioMarket).
+// Este bloque solo lee esa fuente y la vuelca al DOM; no
+// declara precios, teléfonos ni mensajes propios.
+if (window.RioMarket) {
+  const RM = window.RioMarket;
+
+  const countryName = code => (code === 'AR' ? 'argentina' : 'chile');
+
+  function waLink(market, messageKey) {
+    return `https://wa.me/${market.whatsapp}?text=${market.messages[messageKey]}`;
+  }
+
+  function trackWa(contactMethod, market, plan) {
+    if (typeof gtag !== 'function') return;
+    const payload = { contact_method: contactMethod, country: countryName(market.code) };
+    if (plan) payload.plan = plan;
+    gtag('event', 'contact_click', payload);
+  }
+
+  // CTAs que abren WhatsApp directo al mercado activo (sin volver a preguntar el país)
+  const waTargets = [
+    { el: document.getElementById('waFloatLink'), msg: 'hero',    method: 'whatsapp_float' },
+    { el: document.getElementById('heroCta'),      msg: 'hero',    method: 'whatsapp_hero' },
+    { el: document.getElementById('expressCta'),   msg: 'express', method: 'whatsapp_plan', plan: 'express' },
+    { el: document.getElementById('premiumCta'),   msg: 'premium', method: 'whatsapp_plan', plan: 'premium' },
+    { el: document.getElementById('closeCta'),     msg: 'hero',    method: 'whatsapp_close' }
+  ].filter(t => t.el);
+
+  waTargets.forEach(t => {
+    t.el.addEventListener('click', () => trackWa(t.method, RM.get(), t.plan));
+  });
+
+  // Selector de mercado — cabecera (desktop) + drawer (móvil), un solo estado
+  const marketButtons = document.querySelectorAll('.market-btn');
+
+  function renderMarketButtons(market) {
+    marketButtons.forEach(btn => {
+      const active = btn.dataset.market === market.code;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function renderPricing(market) {
+    const promoActive = RM.isPromoActive();
+
+    ['express', 'premium'].forEach(plan => {
+      const pricing = document.getElementById(plan + 'Pricing');
+      const regularEl = document.getElementById(plan + 'Regular');
+      const promoEl = document.getElementById(plan + 'Promo');
+      if (!pricing || !regularEl || !promoEl) return;
+
+      pricing.classList.toggle('is-promo', promoActive);
+      regularEl.innerHTML = `$${RM.formatMoney(market[plan].regular, market)} <span>${market.currency}</span>`;
+      promoEl.innerHTML = `$${RM.formatMoney(market[plan].promo, market)} <span>${market.currency} · pago único</span>`;
+    });
+
+    const promoBanner = document.getElementById('promoBanner');
+    if (promoBanner) promoBanner.hidden = !promoActive;
+
+    const renewalLi = document.getElementById('premiumRenewalText');
+    if (renewalLi) {
+      renewalLi.textContent = `Renovación del dominio desde el 2º año: $${RM.formatMoney(market.renewal, market)} ${market.currency}/año (sujeta a disponibilidad y posibles cambios del registro) — el hosting sigue siendo gratuito`;
+    }
+
+    const faqAmount = document.getElementById('faqRenewalAmount');
+    if (faqAmount) faqAmount.textContent = `$${RM.formatMoney(market.renewal, market)} ${market.currency}`;
+  }
+
+  function applyMarketToDom(market) {
+    waTargets.forEach(t => { t.el.href = waLink(market, t.msg); });
+    renderMarketButtons(market);
+    renderPricing(market);
+  }
+
+  marketButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.dataset.market;
+      if (code === RM.get().code) return;
+      RM.set(code, true);
+      if (typeof gtag === 'function') {
+        gtag('event', 'market_change', { country: countryName(code) });
+      }
+    });
+  });
+
+  RM.onChange(applyMarketToDom);
+  applyMarketToDom(RM.get());
+}
+
 // FAQ accordion
 document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
