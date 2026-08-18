@@ -74,7 +74,7 @@ if (window.RioMarket) {
 
       pricing.classList.toggle('is-promo', promoActive);
       regularEl.innerHTML = `$${RM.formatMoney(market[plan].regular, market)} <span>${market.currency}</span>`;
-      promoEl.innerHTML = `$${RM.formatMoney(market[plan].promo, market)} <span>${market.currency} · pago único</span>`;
+      promoEl.innerHTML = `$${RM.formatMoney(market[plan].promo, market)} <span>${market.currency}</span><span class="rl-plan-price-note">pago único</span>`;
     });
 
     const promoBanner = document.getElementById('promoBanner');
