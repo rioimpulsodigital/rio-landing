@@ -311,6 +311,15 @@
     }
 
     /* ── SELECTOR DE MERCADO (CL/AR) ──────────────── */
+    /* El selector vive únicamente en la cabecera (nav) y permanece
+       visible en todos los tamaños — no se oculta ni se traslada
+       al drawer. En mobile se reduce junto con el logo y el CTA
+       para que los 4 controles entren sin superposición ni salto
+       de línea. Ver breakpoints ≤640px y ≤395px más abajo. */
+    .nav-logo,
+    .nav-actions {
+      min-width: 0; /* permite que los flex-items se achiquen en vez de desbordar */
+    }
     .nav-actions {
       display: flex;
       align-items: center;
@@ -358,10 +367,32 @@
       display: block;
       flex-shrink: 0;
     }
-    #marketSwitchDrawer { display: none; }
+
+    /* CTA de la cabecera: nunca se parte en dos líneas. En el
+       breakpoint más chico se acorta el texto a "Planes" (sin
+       "Ver" ni flecha) en vez de arriesgar overflow. */
+    .nav-cta {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav-cta-short { display: none; }
+
+    /* ≤640px: mismo nivel de reducción en todo el rango móvil
+       (320 a 640). Un cálculo con dos niveles distintos dejó un
+       hueco sin cubrir a 412px (hamburger 14px fuera del
+       viewport, invisible por el overflow-x:hidden global) — se
+       verificó con Chromium real y se unificó a un solo tier con
+       margen de sobra en todos los anchos, incluido 640px. */
     @media (max-width: 640px) {
-      #marketSwitchNav    { display: none; }
-      #marketSwitchDrawer { display: flex; }
+      .nav { padding: 0 .75rem; }
+      .nav-logo img { height: 24px; }
+      .nav-actions { gap: .35rem; }
+      .market-switch { gap: .2rem; padding: 2px; }
+      .market-btn { padding: .48rem .42rem; font-size: .58rem; gap: .22rem; }
+      .market-flag { width: 13px; height: 10px; }
+      .nav-cta { font-size: .68rem; padding: 0 .7rem; height: 30px; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
     }
 
     /* ── PRECIOS: REGULAR / PROMO ─────────────────── */
@@ -477,7 +508,7 @@
     <span class="nav-logo-text">Rio<em>Landing</em></span>
   </a>
   <div class="nav-actions">
-    <div class="market-switch" id="marketSwitchNav" role="group" aria-label="Selector de país">
+    <div class="market-switch" id="marketSwitch" role="group" aria-label="Selector de país">
       <button type="button" class="market-btn" data-market="CL" aria-pressed="false" aria-label="Cambiar a Chile">
         <img src="https://flagcdn.com/20x15/cl.png" alt="" class="market-flag" width="20" height="15">
         <span>CL</span>
@@ -487,7 +518,10 @@
         <span>AR</span>
       </button>
     </div>
-    <a href="#planes" class="nav-cta">Ver planes →</a>
+    <a href="#planes" class="nav-cta">
+      <span class="nav-cta-full">Ver planes →</span>
+      <span class="nav-cta-short">Planes</span>
+    </a>
     <button class="nav-hamburger" aria-label="Abrir menú" onclick="openDrawer()">
       <span></span><span></span><span></span>
     </button>
@@ -496,16 +530,6 @@
 
 <div class="nav-drawer" id="navDrawer">
   <button class="nav-drawer-close" onclick="closeDrawer()" aria-label="Cerrar">✕</button>
-  <div class="market-switch" id="marketSwitchDrawer" role="group" aria-label="Selector de país">
-    <button type="button" class="market-btn" data-market="CL" aria-pressed="false" aria-label="Cambiar a Chile">
-      <img src="https://flagcdn.com/20x15/cl.png" alt="" class="market-flag" width="20" height="15">
-      <span>CL</span>
-    </button>
-    <button type="button" class="market-btn" data-market="AR" aria-pressed="false" aria-label="Cambiar a Argentina">
-      <img src="https://flagcdn.com/20x15/ar.png" alt="" class="market-flag" width="20" height="15">
-      <span>AR</span>
-    </button>
-  </div>
   <a href="#planes" onclick="closeDrawer()" style="color:var(--coral)">Ver planes →</a>
 </div>
 
