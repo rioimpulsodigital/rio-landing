@@ -312,10 +312,11 @@
 
     /* ── SELECTOR DE MERCADO (CL/AR) ──────────────── */
     /* El selector vive únicamente en la cabecera (nav) y permanece
-       visible en todos los tamaños — no se oculta ni se traslada
-       al drawer. En mobile se reduce junto con el logo y el CTA
-       para que los 4 controles entren sin superposición ni salto
-       de línea. Ver breakpoints ≤640px y ≤395px más abajo. */
+       visible en todos los tamaños. La cabecera móvil final tiene
+       solo 3 controles — logo, selector, CTA — sin menú
+       hamburguesa. En mobile se reduce junto con el logo y el CTA
+       para que entren sin superposición ni salto de línea. Ver
+       breakpoint ≤640px más abajo. */
     .nav-logo,
     .nav-actions {
       min-width: 0; /* permite que los flex-items se achiquen en vez de desbordar */
@@ -368,31 +369,26 @@
       flex-shrink: 0;
     }
 
-    /* CTA de la cabecera: nunca se parte en dos líneas. En el
-       breakpoint más chico se acorta el texto a "Planes" (sin
-       "Ver" ni flecha) en vez de arriesgar overflow. */
+    /* CTA de la cabecera: nunca se parte en dos líneas. */
     .nav-cta {
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .nav-cta-short { display: none; }
 
-    /* ≤640px: mismo nivel de reducción en todo el rango móvil
-       (320 a 640). Un cálculo con dos niveles distintos dejó un
-       hueco sin cubrir a 412px (hamburger 14px fuera del
-       viewport, invisible por el overflow-x:hidden global) — se
-       verificó con Chromium real y se unificó a un solo tier con
-       margen de sobra en todos los anchos, incluido 640px. */
+    /* ≤640px: sin menú hamburguesa (eliminado — el drawer solo
+       duplicaba el CTA de planes una vez que el selector de
+       mercado vive en la cabecera). Con ese espacio liberado,
+       "Ver planes" entra completo en una sola línea en todo el
+       rango móvil. Logo y selector se reducen proporcionalmente;
+       verificado con Chromium real en 320-640px. */
     @media (max-width: 640px) {
-      .nav { padding: 0 .75rem; }
-      .nav-logo img { height: 24px; }
-      .nav-actions { gap: .35rem; }
+      .nav { padding: 0 .7rem; }
+      .nav-logo img { height: 22px; }
+      .nav-actions { gap: .4rem; }
       .market-switch { gap: .2rem; padding: 2px; }
-      .market-btn { padding: .48rem .42rem; font-size: .58rem; gap: .22rem; }
-      .market-flag { width: 13px; height: 10px; }
-      .nav-cta { font-size: .68rem; padding: 0 .7rem; height: 30px; }
-      .nav-cta-full  { display: none; }
-      .nav-cta-short { display: inline; }
+      .market-btn { padding: .32rem .4rem; font-size: .56rem; gap: .2rem; }
+      .market-flag { width: 12px; height: 9px; }
+      .nav-cta { font-size: .66rem; padding: 0 .75rem; height: 30px; }
     }
 
     /* ── PRECIOS: REGULAR / PROMO ─────────────────── */
@@ -518,20 +514,9 @@
         <span>AR</span>
       </button>
     </div>
-    <a href="#planes" class="nav-cta">
-      <span class="nav-cta-full">Ver planes →</span>
-      <span class="nav-cta-short">Planes</span>
-    </a>
-    <button class="nav-hamburger" aria-label="Abrir menú" onclick="openDrawer()">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#planes" class="nav-cta">Ver planes →</a>
   </div>
 </nav>
-
-<div class="nav-drawer" id="navDrawer">
-  <button class="nav-drawer-close" onclick="closeDrawer()" aria-label="Cerrar">✕</button>
-  <a href="#planes" onclick="closeDrawer()" style="color:var(--coral)">Ver planes →</a>
-</div>
 
 <!-- ── HERO ──────────────────────────────────────── -->
 <section class="fp-hero">

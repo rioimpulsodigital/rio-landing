@@ -77,15 +77,6 @@ a { text-decoration: none; color: inherit; }
   transition: background .2s, transform .2s;
 }
 .nav-cta:hover { background: var(--coral); transform: translateY(-1px); }
-.nav-hamburger {
-  display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 4px;
-}
-.nav-hamburger span {
-  display: block; width: 22px; height: 2px;
-  background: var(--white); border-radius: 2px;
-  transition: .3s;
-}
 
 /* ── HERO ────────────────────────────────────── */
 .hero {
@@ -807,7 +798,6 @@ footer {
 @media (max-width: 640px) {
   .nav { padding: 0 1.25rem; }
   .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
   .hero-content   { padding: 8rem 1.25rem 4rem; }
   .hero-stats     { gap: 1.5rem; }
   .hero-ring, .hero-corner, .hero-network { display: none; }
@@ -822,21 +812,3 @@ footer {
   .footer-row     { flex-direction: column; align-items: flex-start; }
 }
 
-/* ── MOBILE NAV DRAWER ───────────────────────── */
-.nav-drawer {
-  display: none; position: fixed; inset: 0; z-index: 190;
-  background: rgba(19,0,25,.96); backdrop-filter: blur(14px);
-  flex-direction: column; align-items: center; justify-content: center;
-  gap: 2rem;
-}
-.nav-drawer.open { display: flex; }
-.nav-drawer a {
-  font-family: var(--ff-head); font-size: 1.4rem; font-weight: 700;
-  color: rgba(255,255,255,.8); letter-spacing: -.02em;
-}
-.nav-drawer a:hover { color: var(--coral); }
-.nav-drawer-close {
-  position: absolute; top: 1.5rem; right: 1.5rem;
-  font-size: 1.5rem; color: rgba(255,255,255,.5);
-  background: none; border: none; cursor: pointer;
-}

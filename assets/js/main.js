@@ -15,10 +15,6 @@ window.addEventListener('scroll', () => {
     : 'rgba(19,0,25,0.88)';
 });
 
-// Mobile drawer
-function openDrawer()  { document.getElementById('navDrawer').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeDrawer() { document.getElementById('navDrawer').classList.remove('open'); document.body.style.overflow = ''; }
-
 // ── Mercado activo (CL/AR) — precios, WhatsApp y textos ──
 // Fuente de datos: assets/js/markets.js (window.RioMarket).
 // Este bloque solo lee esa fuente y la vuelca al DOM; no
